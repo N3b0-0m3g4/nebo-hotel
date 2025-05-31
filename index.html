@@ -1,236 +1,554 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nebo Hotel itinerary </title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Nebo Hotel Varkala Travel Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- AOS Animate On Scroll CSS & JS -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <style>
-    :root {
-      --deep-blue: #003366;
+    .attraction-link {
+      transition: color 0.2s, text-decoration 0.2s;
+      cursor: pointer;
+      text-decoration: underline dashed;
+      display: inline-flex;
+      align-items: center;
     }
-    .text-deep-blue { color: var(--deep-blue); }
-    .bg-deep-blue { background-color: var(--deep-blue); }
-    .border-deep-blue { border-color: var(--deep-blue); }
-    .closed { color: red; font-weight: bold; }
-    .status { font-weight: 600; margin-left: 8px; }
+    .attraction-link:hover {
+      color: #7c3aed;
+      text-decoration: underline solid;
+    }
+    .info-icon {
+      font-size: 1.1em;
+      margin-left: 0.3em;
+      vertical-align: middle;
+      color: #7c3aed;
+    }
+    .distance-tag {
+      background: #ede9fe;
+      color: #5b21b6;
+      border-radius: 0.3em;
+      font-size: 0.85em;
+      padding: 0.1em 0.5em;
+      margin-left: 0.5em;
+    }
+    .status {
+      margin-left: 0.5em;
+      font-size: 0.9em;
+      color: #059669;
+    }
+    .nav-link {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .nav-link:after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #fff;
+      transition: width .3s;
+      position: absolute;
+      left: 0; bottom: 0;
+    }
+    .nav-link:hover:after {
+      width: 100%;
+    }
+    .nav-link:hover {
+      color: #ede9fe;
+    }
   </style>
 </head>
-<body class="bg-white text-deep-blue min-h-screen p-4 md:p-8">
-  <div class="max-w-5xl mx-auto">
-    <header class="text-center mb-10" data-aos="fade-down">
-      <img src="images/nebo high res.png" alt="Hotel Logo" class="mx-auto h-20 mb-4" />
-      <h1 class="text-4xl md:text-5xl font-bold mb-2">Welcome to Nebo Hotel</h1>
-      <p class="text-lg md:text-xl text-deep-blue">Your perfect getaway starts here!</p>
-    </header>
+<body class="bg-gradient-to-br from-violet-50 via-white to-blue-100 text-gray-800 min-h-screen">
 
-    <div class="space-y-10">
-      <section class="bg-white p-6 rounded-2xl shadow border border-deep-blue" data-aos="fade-up">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-deep-blue">Ayurveda Massage & Therapy</h2>
-        <div class="space-y-6">
-          
-          <div data-aos="zoom-in">
-            <h3 class="text-xl font-bold text-deep-blue">🌺 Orchid Ayurveda</h3>
-            
-            <p><strong>Contact:</strong> <a href="tel:+919745657181" class="text-blue-600 underline">+91 9745657181</a></p>
-            <p><strong>Opening Time:</strong> 8:00 AM &nbsp;&nbsp; <strong>Closing Time:</strong> 8:00 PM</p>
-            <p><strong>Description:</strong> Traditional Kerala massage therapies with serene ambience and expert care within Nebo Hotel itself.</p>
-          </div>
-        </div>
-      </section>
-      <section class="bg-white p-6 rounded-2xl shadow border border-deep-blue" data-aos="fade-up">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-deep-blue">Top Attractions Nearby</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div data-aos="zoom-in">
-            <img src="images/anjengo.jpg" alt="Anjengo Fort and Lighthouse" class="w-full h-48 object-cover rounded-xl mb-2" />
-            <h3 class="text-xl font-bold text-deep-blue"><a href="https://g.co/kgs/EGzSABP" target="_blank">🏰 Anjengo Fort & Lighthouse</a>
-              <span class="status" id="anjengo-status"></span>
-            </h3>
-            <p>Historical site with colonial charm and sea views.</p>
-            <p><strong>Opening Time:</strong> 9:00 AM &nbsp;&nbsp; <strong>Closing Time:</strong> 5:30 PM</p>
-
-          </div>
-          <div data-aos="zoom-in">
-            <img src="images/kappil.jpeg" alt="Kappil Beach" class="w-full h-48 object-cover rounded-xl mb-2" />
-            <h3 class="text-xl font-bold text-deep-blue"><a href="https://g.co/kgs/QFFSABP" target="_blank">🏖️ Kappil Beach</a></h3>
-            <p>Where tranquil backwaters meet the sea.</p>
-          </div>
-          <div data-aos="zoom-in">
-            <img src="images/blacksandbeach.jpg" alt="Black Sand Beach" class="w-full h-48 object-cover rounded-xl mb-2" />
-            <h3 class="text-xl font-bold text-deep-blue"><a href="https://g.co/kgs/yXxvsRm" target="_blank">⚫ Black Sand Beach</a></h3>
-            <p>Peaceful beach with naturally dark sands.</p>
-          </div>
-          <div data-aos="zoom-in">
-            <img src="images/aquarium.jpg" alt="Varkala Aquarium" class="w-full h-48 object-cover rounded-xl mb-2" />
-            <h3 class="text-xl font-bold text-deep-blue"><a href="https://g.co/kgs/hSiDyvp" target="_blank">🐠 Varkala Aquarium</a>
-              <span class="status" id="aquarium-status"></span>
-            </h3>
-            <p>Colorful marine life in a compact aquarium setting.</p>
-            <p><strong>Opening Time:</strong> 10:00 AM &nbsp;&nbsp; <strong>Closing Time:</strong> 5:00 PM</p>
-
-          </div>
-          <div data-aos="zoom-in">
-            <img src="images/performing arts center.jpeg" alt="Center for Performing Arts" class="w-full h-48 object-cover rounded-xl mb-2" />
-           <h3 class="text-xl font-bold text-deep-blue"><a href="https://g.co/kgs/zXdrS1j" target="_blank">🎭 Center for Performing Arts</a>
-              <span class="status" id="arts-status"></span>
-           </h3>
-           <p>Live performances showcasing Kerala’s cultural richness.</p>
-           <p><strong>Opening Time:</strong> 10:00 AM &nbsp;&nbsp; <strong>Closing Time:</strong> 10:00 PM</p>
-            
-          </div>
-           <div data-aos="zoom-in">
-            <img src="images/janardhana swami temple.jpg" alt="Center for Performing Arts" class="w-full h-48 object-cover rounded-xl mb-2" />
-           <h3 class="text-xl font-bold text-deep-blue"><a href="https://g.co/kgs/dx95A1u" target="_blank">🛕Shri Janardhana Swamy Temple</a>
-              <span class="status" id="arts-status"></span>
-           </h3>
-           <p>A timeless sanctuary of devotion overlooking the sea.</p>
-           <p><strong>Opening Time:</strong> 07:00 AM &nbsp;&nbsp; <strong>Closing Time:</strong> 08:00 PM</p>
-        </div>
-      </section>
-
-      <section class="bg-white p-6 rounded-2xl shadow border border-deep-blue" data-aos="fade-up">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-deep-blue">Places Within 50km to Visit</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div data-aos="zoom-in">
-            <img src="images/elephant-feeding.jpg" alt="Elephant Park Parippally" class="w-full h-48 object-cover rounded-xl mb-2" />
-            <h3 class="text-xl font-bold text-deep-blue"><a href="https://g.co/kgs/L8AVHcq" target="_blank">🐘 Kaveri Elephant Park</a>
-                <span class="status" id="elephant-status"></span>
-            </h3>
-            <p>Watch elephants roam and feed in a lush park.</p>
-            <p><strong>Opening Time:</strong> 8:00 AM &nbsp;&nbsp; <strong>Closing Time:</strong> 7:00 PM</p>
-
-          </div>
-          <div data-aos="zoom-in">
-            <img src="images/Jatayu.jpg" alt="Jadayu Earth Center" class="w-full h-48 object-cover rounded-xl mb-2" />
-            <h3 class="text-xl font-bold text-deep-blue"><a href="https://g.co/kgs/N529ZXW" target="_blank">🪨 Jadayu Earth Center</a>
-              <span class="status" id="jatayu-status"></span>
-            </h3>
-            <p>Massive bird sculpture and adventure activities.</p>
-            <p><strong>Opening Time:</strong> 9:30 AM &nbsp;&nbsp; <strong>Closing Time:</strong> 6:30 PM</p>
-
-          </div>
-          <div data-aos="zoom-in">
-            <img src="images/Backwaters-of-Munroe-Island.webp" alt="Munroe Islands" class="w-full h-48 object-cover rounded-xl mb-2" />
-            <h3 class="text-xl font-bold text-deep-blue"><a href="https://g.co/kgs/7YV7i9c" target="_blank">🚣 Munroe Islands</a></h3>
-            <p>Stunning backwater boat rides through village life.</p>
-          </div>
-        </div>
-      </section>
-      
-
-
-      <section class="bg-white p-6 rounded-2xl shadow border border-deep-blue" data-aos="fade-up">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-deep-blue">Adventure Activities</h2>
-        <div class="space-y-6">
-          <div data-aos="zoom-in">
-            <h3 class="text-xl font-bold text-deep-blue">🤿 Scuba Diving</h3>
-            <p><strong>Operator:</strong><a href="https://g.co/kgs/SdvuV8r" target="_blank">Dive Kerala</a></p>
-            <p><strong>Contact:</strong><a href="tel:+917902223931" class="text-blue-600 underline"> +91 7902223931</a></p>
-            <p><strong>Price:</strong> Varies — please contact directly for current rates.</p>
-          </div>
-          <div data-aos="zoom-in">
-            <h3 class="text-xl font-bold text-deep-blue">🛶 Kayaking</h3>
-            <p><strong>Operators:</strong></p>
-            <ul class="list-disc list-inside ml-6">
-              <li><a href="https://g.co/kgs/SDghXJq" target="_blank">Mangrove Village Adventures ——</a><a href="tel:+9191234 56789" class="text-blue-600 underline"> +91 91234 56789</a></li>
-              <li><a href="https://g.co/kgs/jePwEkY" target="_blank">Siva Kayaking —</a> &nbsp<a href="tel:+919349460261" class="text-blue-600 underline"> +91 9349460261</a></li>
-            </ul>
-            <p><strong>Price:</strong> Varies — please contact directly for current rates.</p>
-          </div>
-          <div data-aos="zoom-in">
-            <h3 class="text-xl font-bold text-deep-blue">🪂 Paragliding</h3>
-            <p><strong>Operator:</strong><a href="https://g.co/kgs/zgWdm45" target="-blank"> Fly Varkala</a></p>
-            <p><strong>Contact:</strong><a href="tel:+918592989898" class="text-blue-600 underline"> +91 8592989898</a></p>
-            <p><strong>Price:</strong> Rs 4500 (Varies) — please contact directly for current rates.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="bg-white p-6 rounded-2xl shadow border border-deep-blue" data-aos="fade-up">
-        <h2 class="text-2xl font-semibold mb-4 text-deep-blue">Dining Recommendations</h2>
-
-        <h3 class="text-xl font-bold text-deep-blue mb-2">Cafes</h3>
-        <ul class="list-disc list-inside mb-4 space-y-1">
-          <li><a href="https://g.co/kgs/jsR2Hqi" target="_blank">Clafouti restaurant(North Cliff)</a></li>
-          <li><a href="https://g.co/kgs/GuGiuoN" target="_blank">Café del Mar (North Cliff)</a></li>
-          <li><a href="https://g.co/kgs/Na4smte" target="_blank">Café Sarwaa(South Cliff)</a></li>
-          <li><a href="https://g.co/kgs/8guQoCe" target="_blank">Café Trip is Life(South Cliff)</a></li>
-          <li><a href="https://g.co/kgs/ZNfdhFK" target="_blank">Café Italiano(North Cliff)</a></li>
-          <li><a href="https://g.co/kgs/2NuZtyt" target="_blank">Darjling cafe(North Cliff)</a></li>
-        </ul>
-
-        <h3 class="text-xl font-bold text-deep-blue mb-2">Vegetarian Restaurants</h3>
-        <ul class="list-disc list-inside mb-4 space-y-1">
-          <li><a href="https://g.co/kgs/e3N8ftd" target="_blank">Suprabhatham (Town)</a></li>
-          <li><a href="https://g.co/kgs/rGnzaRN" target="_blank">Sree Vinayaka (Town)</a></li>
-          <li><a href="https://g.co/kgs/op4WLUV" target="_blank">Saravana Bhavan (Town)</a></li>
-        </ul>
-
-        <h3 class="text-xl font-bold text-deep-blue mb-2">Non-Vegetarian Restaurants</h3>
-        <ul class="list-disc list-inside mb-4 space-y-1">
-          <li><a href="https://g.co/kgs/hHnFbd4" target="_blank">Chimney Family Restaurant (Town)</a></li>
-          <li><a href="https://g.co/kgs/AazBLXx" target="_blank">Fabin Arabia (Town)</a></li>
-          <li><a href="https://g.co/kgs/TduW1Pj" target="_blank">Arabian Grill (Town)</a></li>
-        </ul>
-
-      </section>
+  <!-- Header with Nebo Hotel branding -->
+  <header class="bg-gradient-to-r from-violet-700 to-blue-500 text-white p-6 shadow-lg sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between">
+      <div class="flex items-center">
+        <!-- Logo: relative path, no white bg, no padding, bigger -->
+        <img src="/images/nebo-high-res-white.png" alt="Nebo Hotel Logo" class="w-24 h-24 rounded-full shadow-lg mb-2"/>
+        <h1 class="text-3xl font-extrabold tracking-tight drop-shadow-lg"> Travel Guide</h1>
+      </div>
+      <nav class="mt-3 sm:mt-0 space-x-6 text-lg">
+        <a href="#attractions" class="nav-link">Attractions</a>
+        <a href="#adventure" class="nav-link">Adventure</a>
+        <a href="#nearby" class="nav-link">Nearby</a>
+        <a href="#restaurants" class="nav-link">Restaurants</a>
+      </nav>
     </div>
+  </header>
 
-    <section class="bg-white p-6 rounded-2xl shadow border border-deep-blue mt-10" data-aos="fade-up">
-      <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-deep-blue">Helpful Info</h2>
-      <ul class="space-y-2">
-        <li><strong>Front Desk:</strong> Available 24/7 for bookings and questions&nbsp&nbsp <a href="tel:+9191234 56789" class="text-blue-600 underline">+91 9037525243</a></li>
-        <li><strong>Transportation:</strong> We can help you book taxis and tuk-tuks</li>
-      </ul>
+  <main class="max-w-5xl mx-auto p-4">
+    <!-- Nebo Hotel Welcome -->
+    <section class="my-10 text-center" data-aos="fade-up">
+      <div class="flex flex-col items-center justify-center mb-4">
+        <!-- Welcome logo: use same style as header for consistency -->
+        <img src="/images/nebo-high-res.png" alt="Nebo Hotel Logo" class="w-24 h-24 rounded-full shadow-lg mb-2"/>
+        <h2 class="text-4xl font-extrabold mb-2 text-violet-700 drop-shadow-lg">Welcome to Nebo Hotel, Varkala</h2>
+      </div>
+      <p class="text-xl text-gray-700 mb-4 max-w-2xl mx-auto">
+        Your home by the sea. We’re delighted to host you! Here’s our curated guide to the best of Varkala and beyond. Explore, relax, and experience Kerala’s magic—just steps from your room.
+      </p>
+      <img src="/images/varkala.png" alt="Varkala Cliff" class="mx-auto rounded-3xl shadow-lg w-full max-w-3xl object-cover" data-aos="zoom-in" />
+    </section>
+    <!-- Ayurveda Massage Center Promo Section -->
+    <section id="ayurveda" class="my-14">
+      <div class="bg-gradient-to-br from-violet-50 via-white to-blue-100 rounded-3xl shadow-2xl p-6 flex flex-col md:flex-row items-center gap-8 border border-violet-200" data-aos="fade-up">
+        <img src="/images/orchid.png" alt="Ayurveda Massage Center" class="w-40 h-40 object-cover rounded-2xl shadow-lg border-4 border-violet-100 mb-4 md:mb-0" />
+        <div>
+          <h2 class="text-2xl font-bold text-violet-700 mb-2 flex items-center">
+            <img src="https://img.icons8.com/color/48/000000/spa-flower.png" class="w-8 h-8 mr-2" alt="Spa Icon"/>
+            Orchid Ayurveda
+          </h2>
+          <p class="text-lg text-violet-700 mb-2">
+            Rejuvenate your mind and body with authentic Ayurveda therapies, massages, and wellness rituals—right here at Nebo Hotel.
+          </p>
+          <ul class="list-disc ml-6 text-violet-700 text-base mb-3">
+            <li>Traditional Kerala massages</li>
+            <li>Herbal steam bath &amp; Shirodhara</li>
+            <li>Personalized wellness consultations</li>
+          </ul>
+          <a href="tel:+919876543210" class="inline-block px-4 py-2 bg-violet-700 text-white font-semibold rounded-full shadow hover:bg-violet-800 transition">
+            Book Your Session: +91 9745657181
+          </a>
+        </div>
+      </div>
     </section>
 
-    <footer class="text-center text-deep-blue text-sm mt-12" data-aos="fade-up">
-      &copy; 2025 Nebo Hotel. All rights reserved.
-    </footer>
-  </div>
 
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <!-- Attractions -->
+    <section id="attractions" class="my-14">
+      <h2 class="text-2xl font-bold text-violet-700 mb-3" data-aos="fade-right">Top Attractions</h2>
+      <p class="mb-6 text-violet-600 font-medium flex items-center" data-aos="fade-right" data-aos-delay="100">
+        <span class="mr-1">➔</span>
+        Click any attraction name for more details & directions.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Anjengo Fort -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-violet-100" data-aos="fade-up" data-aos-delay="0">
+          <img src="/images/anjengo.jpg" alt="Anjengo Fort and Lighthouse" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <a href="https://g.co/kgs/EGzSABP" target="_blank" class="attraction-link" title="Click for more details">
+              🏰 Anjengo Fort & Lighthouse
+              <span class="info-icon">➔</span>
+            </a>
+            <span class="status">Open</span>
+            <span class="distance-tag">11 km</span>
+          </h3>
+          <p class="mt-1 text-gray-700">Historical site with colonial charm and sea views.</p>
+          <p class="text-xs text-gray-500"><strong>Opening:</strong> 9:00 AM <strong>Closing:</strong> 5:30 PM</p>
+        </div>
+        <!-- Kappil Beach -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-violet-100" data-aos="fade-up" data-aos-delay="100">
+          <img src="/images/kappil.jpeg" alt="Kappil Beach" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <a href="https://g.co/kgs/QFFSABP" target="_blank" class="attraction-link" title="Click for more details">
+              🏖️ Kappil Beach
+              <span class="info-icon">➔</span>
+            </a>
+            <span class="distance-tag">8 km</span>
+          </h3>
+          <p class="mt-1 text-gray-700">Where tranquil backwaters meet the sea.</p>
+        </div>
+        <!-- Varkala Aquarium -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-violet-100" data-aos="fade-up" data-aos-delay="200">
+          <img src="/images/aquarium.jpg" alt="Varkala Aquarium" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <a href="https://g.co/kgs/hSiDyvp" target="_blank" class="attraction-link" title="Click for more details">
+              🐠 Varkala Aquarium
+              <span class="info-icon">➔</span>
+            </a>
+            <span class="status">Open</span>
+            <span class="distance-tag">3.5 km</span>
+          </h3>
+          <p class="mt-1 text-gray-700">Colorful marine life in a compact aquarium setting.</p>
+          <p class="text-xs text-gray-500"><strong>Opening:</strong> 10:00 AM <strong>Closing:</strong> 5:00 PM</p>
+        </div>
+        <!-- Kaveri Elephant Park -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-violet-100" data-aos="fade-up" data-aos-delay="300">
+          <img src="/images/elephant-feeding.jpg" alt="Kaveri Elephant Park Parippally" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <a href="https://g.co/kgs/L8AVHcq" target="_blank" class="attraction-link" title="Click for more details">
+              🐘 Kaveri Elephant Park
+              <span class="info-icon">➔</span>
+            </a>
+            <span class="status">Open</span>
+            <span class="distance-tag">14 km</span>
+          </h3>
+          <p class="mt-1 text-gray-700">Watch elephants roam and feed in a lush park.</p>
+          <p class="text-xs text-gray-500"><strong>Opening:</strong> 8:00 AM <strong>Closing:</strong> 7:00 PM</p>
+        </div>
+        <!-- Janardanaswamy Temple -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-violet-100" data-aos="fade-up" data-aos-delay="400">
+          <img src="/images/janardhana swami temple.jpg" alt="Janardanaswamy Temple" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <a href="https://g.co/kgs/3p3rZ6" target="_blank" class="attraction-link" title="Click for more details">
+              🛕 Janardanaswamy Temple
+              <span class="info-icon">➔</span>
+            </a>
+            <span class="distance-tag">1 km</span>
+          </h3>
+          <p class="mt-1 text-gray-700">Ancient Hindu temple, over 700 years old.</p>
+          <p class="text-xs text-gray-500"><strong>Opening:</strong> 4:00 AM <strong>Closing:</strong> 12:00 PM, 5:00 PM - 8:00 PM</p>
+        </div>
+        <!-- Sivagiri Mutt -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-violet-100" data-aos="fade-up" data-aos-delay="500">
+          <img src="/images/sivagiri.webp" alt="Sivagiri Mutt" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <a href="https://g.co/kgs/1qF6fA" target="_blank" class="attraction-link" title="Click for more details">
+              🏯 Sivagiri Mutt
+              <span class="info-icon">➔</span>
+            </a>
+            <span class="distance-tag">4.5 km</span>
+          </h3>
+          <p class="mt-1 text-gray-700">Spiritual center and ashram founded by Sree Narayana Guru.</p>
+          <p class="text-xs text-gray-500"><strong>Opening:</strong> 5:30 AM <strong>Closing:</strong> 7:00 PM</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Adventure Activities -->
+    <section id="adventure" class="my-14">
+      <h2 class="text-2xl font-bold text-green-700 mb-3" data-aos="fade-right">Adventure Activities</h2>
+      <p class="mb-6 text-violet-600 font-medium flex items-center" data-aos="fade-right" data-aos-delay="100">
+        <span class="mr-1">➔</span>
+        Click any activity name for details, bookings, or directions.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Paragliding -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-green-100" data-aos="zoom-in" data-aos-delay="0">
+          <img src="/images/Fly_logo-1-1.png" alt="Paragliding Varkala" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <a href="https://g.co/kgs/wsnvfqi" target="_blank" class="attraction-link" title="Click for more details">
+              🪂 Paragliding over Varkala Cliff
+              <span class="info-icon">➔</span>
+            </a>
+          </h3>
+          <p class="mt-1 text-gray-700">Soar above the cliffs and Arabian Sea for breathtaking views.</p>
+        </div>
+        <!-- Surfing -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-green-100" data-aos="zoom-in" data-aos-delay="100">
+          <img src="/images/Surf.avif" alt="Surfing Varkala" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <a href="https://maps.app.goo.gl/Fh9TjckNo6H1iuVSA" target="_blank" class="attraction-link" title="Click for more details">
+              🏄‍♂️ Surfing at Varkala Beach
+              <span class="info-icon">➔</span>
+            </a>
+          </h3>
+          <p class="mt-1 text-gray-700">Catch the waves or take a lesson at Varkala’s surf schools.</p>
+        </div>
+        <!-- Kayaking Backwaters -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-green-100" data-aos="zoom-in" data-aos-delay="200">
+          <img src="/images/kayaking.jpg" alt="Kayaking " class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <a href="https://g.co/kgs/aEqAZcV" target="_blank" class="attraction-link" title="Click for more details">
+              🚣‍♂️ Kayaking in Backwaters
+              <span class="info-icon">➔</span>
+            </a>
+          </h3>
+          <p class="mt-1 text-gray-700">Explore peaceful backwaters surrounded by mangrove forest.</p>
+        </div>
+        <!-- Yoga on the Cliff -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-green-100" data-aos="zoom-in" data-aos-delay="300">
+          <img src="/images/yoga.jpg" alt="Yoga Varkala" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <a href="https://maps.app.goo.gl/LknT3CG5ZMGbtDhd9" target="_blank" class="attraction-link" title="Click for more details">
+              🧘 Yoga on the Cliff
+              <span class="info-icon">➔</span>
+            </a>
+          </h3>
+          <p class="mt-1 text-gray-700">Join a sunrise or sunset yoga session with a sea view.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Day Trips & Nearby Wonders -->
+    <section id="nearby" class="my-14">
+      <h2 class="text-2xl font-bold text-blue-700 mb-3" data-aos="fade-right">Day Trips & Nearby Wonders</h2>
+      <p class="mb-6 text-blue-600 font-medium flex items-center" data-aos="fade-right" data-aos-delay="100">
+        <span class="mr-1">➔</span>
+        Explore these amazing places within 1-2 hours of Varkala!
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Jatayu Earth Center -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-blue-100" data-aos="fade-up" data-aos-delay="0">
+          <img src="/images/Jatayu.jpg" alt="Jatayu Earth Center" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <a href="https://goo.gl/maps/1pB9wM3oT9u8pQna8" target="_blank" class="attraction-link" title="Click for more details">
+              🦅 Jatayu Earth Center (Jatayu Park)
+              <span class="info-icon">➔</span>
+            </a>
+            <span class="distance-tag">28 km</span>
+          </h3>
+          <p class="mt-1 text-gray-700">World’s largest bird sculpture, adventure park, cable car, and mythology museum.</p>
+        </div>
+        <!-- Munroe Island -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-blue-100" data-aos="fade-up" data-aos-delay="100">
+          <img src="/images/Munroe.jpg" alt="Munroe Island" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <a href="https://goo.gl/maps/vJ4cKqv5QeN2" target="_blank" class="attraction-link" title="Click for more details">
+              🛶 Munroe Island
+              <span class="info-icon">➔</span>
+            </a>
+            <span class="distance-tag">49 km</span>
+          </h3>
+          <p class="mt-1 text-gray-700">Backwater village famous for canoe tours, village life, and birdwatching.</p>
+        </div>
+        <!-- Kollam Beach & Lighthouse -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-blue-100" data-aos="fade-up" data-aos-delay="200">
+          <img src="/images/kollam beach.jpg" alt="Kollam Beach" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <a href="https://goo.gl/maps/8h6zXw4WvV62" target="_blank" class="attraction-link" title="Click for more details">
+              🏖️ Kollam Beach & Lighthouse
+              <span class="info-icon">➔</span>
+            </a>
+            <span class="distance-tag">27 km</span>
+          </h3>
+          <p class="mt-1 text-gray-700">Golden beach, iconic lighthouse, and a bustling local town.</p>
+        </div>
+        <!-- Ponmudi Hills -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-blue-100" data-aos="fade-up" data-aos-delay="300">
+          <img src="/images/ponmudi.jpg" alt="Ponmudi Hills" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <a href="https://goo.gl/maps/UZQw2xK1Z8Y2" target="_blank" class="attraction-link" title="Click for more details">
+              ⛰️ Ponmudi Hills
+              <span class="info-icon">➔</span>
+            </a>
+            <span class="distance-tag">80 km</span>
+          </h3>
+          <p class="mt-1 text-gray-700">Lush green hills, trekking, waterfalls, and cool mountain air.</p>
+        </div>
+        <!-- Thenmala Ecotourism -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-blue-100" data-aos="fade-up" data-aos-delay="400">
+          <img src="/images/Thenmala.jpg" alt="Thenmala" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <a href="https://www.thenmalaecotourism.com/Home/Index" target="_blank" class="attraction-link" title="Click for more details">
+              🌳 Thenmala Ecotourism
+              <span class="info-icon">➔</span>
+            </a>
+            <span class="distance-tag">67 km</span>
+          </h3>
+          <p class="mt-1 text-gray-700">India’s first planned ecotourism destination: forest trails, adventure, sculpture garden.</p>
+        </div>
+        <!-- Varkala Tunnel (Historical) -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-blue-100" data-aos="fade-up" data-aos-delay="500">
+          <img src="/images/varkala tunnel.jpg" alt="Varkala Tunnel" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <a href="https://g.co/kgs/nM1U6iN" target="_blank" class="attraction-link" title="Click for more details">
+              🚇 Varkala Tunnel
+              <span class="info-icon">➔</span>
+            </a>
+            <span class="distance-tag">3.5 km</span>
+          </h3>
+          <p class="mt-1 text-gray-700">19th-century waterway tunnel, a unique piece of colonial engineering.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Example tags, copy as needed 
+      <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-200 text-green-800 border border-green-400">Veg</span>
+      <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-200 text-green-800 border border-green-600">PureVeg</span>
+      <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-red-200 text-red-800 border border-red-400">Nonveg</span>
+      <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700">North cliff</span>
+      <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-pink-100 text-pink-700">South cliff</span>
+      <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-pink-100 text-pink-700">Town</span>  -->
+
+
+    <!-- Restaurants -->
+    <section id="restaurants" class="my-14">
+      <h2 class="text-2xl font-bold text-rose-700 mb-3" data-aos="fade-right">Popular Restaurants & Cafés</h2>
+      <p class="mb-6 text-violet-600 font-medium flex items-center" data-aos="fade-right" data-aos-delay="100">
+        <span class="mr-1">➔</span>
+        Click any restaurant name for menu, reviews, or directions.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Cafe Sarwaa -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-rose-100" data-aos="fade-up" data-aos-delay="0">
+          <img src="/images/cafe sarwaa.jpg" alt="Cafe Sarwaa" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+             <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-200 text-green-800 border border-green-400">Veg</span> /
+             <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-red-200 text-red-800 border border-red-400">Nonveg</span> / 
+             <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-pink-100 text-pink-700">South cliff</span><br>
+            <a href="https://g.co/kgs/rFTKyww" target="_blank" class="attraction-link" title="Click for more details">
+              ☕ Café Sarwaa on the cliff
+              <span class="info-icon">➔</span>
+            </a>
+          </h3>
+          <p class="mt-1 text-gray-700">Chill vibes, sea views, and global cuisine on the cliff.</p>
+        </div>
+        <!--Trip is life Café -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-rose-100" data-aos="fade-up" data-aos-delay="300">
+          <img src="/images/trip is life.webp" alt="Café del Mar" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-200 text-green-800 border border-green-400">Veg</span> /
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-red-200 text-red-800 border border-red-400">Nonveg</span> / 
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-pink-100 text-pink-700">South cliff</span><br>
+            <a href="https://g.co/kgs/GqYzYaD" target="_blank" class="attraction-link" title="Click for more details">
+              🥗 Trip is life Café 
+              <span class="info-icon">➔</span>
+            </a>
+          </h3>
+          <p class="mt-1 text-gray-700">Continental, pasta, fresh juices and a view</p>
+        </div>
+        <!-- Café Italiano -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-rose-100" data-aos="fade-up" data-aos-delay="300">
+          <img src="/images/cafeitaliano.jpg" alt="Café Italiano" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-200 text-green-800 border border-green-400">Veg</span> /
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-red-200 text-red-800 border border-red-400">Nonveg</span> / 
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700">North cliff</span><br>
+            <a href="https://g.co/kgs/hNyyR4o" target="_blank" class="attraction-link" title="Click for more details">
+              ☕ Café Italiano
+              <span class="info-icon">➔</span>
+            </a>
+          </h3>
+          <p class="mt-1 text-gray-700">Seafood, pizza, and fresh juices.</p>
+        </div>
+         <!-- Darjeeling -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-rose-100" data-aos="fade-up" data-aos-delay="300">
+          <img src="/images/darjeeling.jpg" alt="Darjeeling" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-200 text-green-800 border border-green-400">Veg</span> /
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-red-200 text-red-800 border border-red-400">Nonveg</span> / 
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700">North cliff</span><br>
+            <a href="https://g.co/kgs/4wQpXQ" target="_blank" class="attraction-link" title="Click for more details">
+              ☕ Darjeeling Cafe
+              <span class="info-icon">➔</span>
+            </a>
+          </h3>
+          <p class="mt-1 text-gray-700">Seafood, pizza, and fresh juices.</p>
+        </div>
+        <!-- Clafouti -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-rose-100" data-aos="fade-up" data-aos-delay="100">
+          <img src="/images/clafouti.avif" alt="Clafouti" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-200 text-green-800 border border-green-400">Veg</span> /
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-red-200 text-red-800 border border-red-400">Nonveg</span> / 
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700">North cliff</span><br>
+            <a href="https://g.co/kgs/3z4VbF" target="_blank" class="attraction-link" title="Click for more details">
+              🍽️ Clafouti
+              <span class="info-icon">➔</span>
+            </a>
+          </h3>
+          <p class="mt-1 text-gray-700">Seafood, tandoor, and indian favorites with ocean panorama.</p>
+        </div>
+        <!-- God's Own Country Kitchen -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-rose-100" data-aos="fade-up" data-aos-delay="200">
+          <img src="/images/gods-own-country-kitchen.jpg" alt="God's Own Country Kitchen" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-200 text-green-800 border border-green-400">Veg</span> /
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-red-200 text-red-800 border border-red-400">Nonveg</span> / 
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700">North cliff</span><br>
+            <a href="https://g.co/kgs/2mJj3m" target="_blank" class="attraction-link" title="Click for more details">
+              🍛 God's Own Country Kitchen
+              <span class="info-icon">➔</span>
+            </a>
+          </h3>
+          <p class="mt-1 text-gray-700">Authentic Kerala food, vegetarian & vegan options.</p>
+        </div>
+        <!-- Café del Mar -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-rose-100" data-aos="fade-up" data-aos-delay="300">
+          <img src="/images/cafe del mar.jpg" alt="Café del Mar" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-200 text-green-800 border border-green-400">Veg</span> /
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-red-200 text-red-800 border border-red-400">Nonveg</span> / 
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700">North cliff</span><br>
+            <a href="https://g.co/kgs/4wQpXQ" target="_blank" class="attraction-link" title="Click for more details">
+              🥗 Café del Mar
+              <span class="info-icon">➔</span>
+            </a>
+          </h3>
+          <p class="mt-1 text-gray-700">Seafood, pizza, and fresh juices.</p>
+        </div>
+         <!-- Chimney -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-rose-100" data-aos="fade-up" data-aos-delay="300">
+          <img src="/images/chimney.webp" alt="Chimney family restaurant" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-200 text-green-800 border border-green-400">Veg</span> /
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-red-200 text-red-800 border border-red-400">Nonveg</span> / 
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-pink-100 text-pink-700">Town</span><br>
+            <a href="https://g.co/kgs/hNyyR4o" target="_blank" class="attraction-link" title="Click for more details">
+              👪 Chimney Family Restaurant
+              <span class="info-icon">➔</span>
+            </a>
+          </h3>
+          <p class="mt-1 text-gray-700">Seafood, pizza, and fresh juices.</p>
+        </div>
+         <!-- Sharvana Bhavan -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-rose-100" data-aos="fade-up" data-aos-delay="300">
+          <img src="/images/saravana.webp" alt="Saravana Bhavan" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-200 text-green-800 border border-green-600">PureVeg</span> /
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-pink-100 text-pink-700">Town</span> <br>
+            <a href="https://g.co/kgs/hNyyR4o" target="_blank" class="attraction-link" title="Click for more details">
+              🥬 Saravana Bhavan
+              <span class="info-icon">➔</span>
+            </a>
+          </h3>
+          <p class="mt-1 text-gray-700">South Indian pure veg.</p>
+        </div>
+     <!-- Suprabhatham -->
+        <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-4 hover:scale-[1.03] transition-all duration-300 border border-rose-100" data-aos="fade-up" data-aos-delay="300">
+          <img src="/images/suprabhatham.jpg" alt="Suprabhatham" class="w-full h-40 object-cover rounded-xl mb-3 shadow" />
+          <h3 class="text-lg font-bold">
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-200 text-green-800 border border-green-600">PureVeg</span> / 
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-pink-100 text-pink-700">Town</span>
+            <a href="https://g.co/kgs/hNyyR4o" target="_blank" class="attraction-link" title="Click for more details">
+              🥗 Suprabhatham Restaurant
+              <span class="info-icon">➔</span>
+            </a>
+          </h3>
+          <p class="mt-1 text-gray-700">South Indian pure veg.</p>
+        </div>
+      </div>
+    </section>
+    <!-- Contact Reception / Transport Section -->
+    <section id="contact-reception" class="my-14">
+      <div class="bg-gradient-to-br from-violet-50 via-white to-blue-100 rounded-3xl shadow-2xl p-6 flex flex-col md:flex-row items-center gap-8 border border-violet-200" data-aos="fade-up">
+        <img src="/images/scooter.jpg" alt="Scooter Icon" class="w-28 h-28 object-contain rounded-xl shadow-lg border-4 border-violet-100 mb-4 md:mb-0" />
+        <div>
+          <h2 class="text-2xl font-bold text-violet-700 mb-2 flex items-center">
+            <img src="/images/taxi.webp" class="w-8 h-8 mr-2" alt="Taxi Icon"/>
+            Need a Ride? Contact Reception!
+          </h2>
+          <p class="text-lg text-violet-700 mb-2">
+            For rental scooters, taxis, or tuk-tuks, our front desk is happy to help you explore Varkala with ease.
+          </p>
+          <ul class="list-disc ml-6 text-violet-700 text-base mb-3">
+            <li>Scooter &amp; bike rentals</li>
+            <li>Taxi bookings (local &amp; airport transfers)</li>
+            <li>Tuk-tuk/auto rickshaw arrangements</li>
+          </ul>
+          <a href="tel:+919037525243" class="inline-block px-4 py-2 bg-violet-700 text-white font-semibold rounded-full shadow hover:bg-violet-800 transition">
+            Call Reception: +91 9037525243
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-14 py-6 text-center text-gray-500 text-sm">
+      <div data-aos="fade-up" data-aos-delay="100">
+        <img src="https://cdn-icons-png.flaticon.com/512/3178/3178283.png" alt="Nebo Hotel Logo" class="w-8 h-8 inline-block rounded-full mr-2 align-middle bg-white p-1 shadow"/>
+        <span class="align-middle">
+          © 2024 Nebo Hotel Varkala. All images © their respective owners.<br>
+          Designed with ❤️ and ☕ for our guests.
+        </span>
+      </div>
+    </footer>
+  </main>
+
   <script>
     AOS.init({
+      duration: 800,
       once: true,
-      duration: 1000,
-      offset: 50,
+      easing: 'ease-in-out'
     });
-
-    // Closing times (24h format) for attractions:
-    const attractions = {
-      "anjengo-status": "18:00", // 6 PM
-      "aquarium-status": "17:00", // 5 PM
-      "arts-status": "22:00", // 10 PM
-      "elephant-status": "19:00", // 7 PM
-      "jatayu-status": "18:30" // 6:30 PM
-      
-    };
-
-    function checkOpenStatus() {
-      const now = new Date();
-      const currentTime = now.getHours() + ":" + now.getMinutes().toString().padStart(2, "0");
-
-      for (const id in attractions) {
-        const closing = attractions[id];
-        const statusElem = document.getElementById(id);
-        if (!statusElem) continue;
-
-        // Compare times
-        if (currentTime > closing) {
-          statusElem.textContent = "Closed";
-          statusElem.classList.add("closed");
-        } else {
-          statusElem.textContent = "Open";
-          statusElem.classList.remove("closed");
-        }
-      }
-    }
-
-    checkOpenStatus();
-    // Optional: refresh every minute
-    setInterval(checkOpenStatus, 60000);
   </script>
 </body>
 </html>
